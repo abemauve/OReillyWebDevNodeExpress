@@ -8,6 +8,13 @@ app.get('/', (req, res) => {
     res.send('Meadowlark Travel')
 })
 
+// about route
+app.get('/about', (req, res) => {
+    res.type('text/plain')
+    res.send('About Meadowlark Travel')
+})
+
+
 // custom 404 page
 app.use((req, res) => {
     res.type('text/plain')
