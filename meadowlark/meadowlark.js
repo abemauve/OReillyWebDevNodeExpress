@@ -2,7 +2,6 @@ const express = require('express')
 const expressHandlebars = require('express-handlebars')
 
 const handlers = require('./lib/handlers')
-const fortune = require('./lib/fortune')
 
 const app = express()
 

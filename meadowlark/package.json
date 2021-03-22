@@ -4,7 +4,8 @@
   "description": "Meadowlark travel app",
   "main": "meadowlark.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "lint": "eslint meadowlark.js lib"
   },
   "author": "",
   "license": "ISC",
