@@ -4,6 +4,7 @@ const expressHandlebars = require('express-handlebars')
 const handlers = require('./lib/handlers')
 
 const app = express()
+app.disable('x-powered-by')
 
 // configure Handlebars view engine
 app.engine('handlebars', expressHandlebars({
@@ -20,6 +21,14 @@ app.get('/', handlers.home)
 
 // about route
 app.get('/about', handlers.about)
+
+// see headers transmitted to the browser
+app.get('/headers', (req, res) => {
+    res.type('text/plain')
+    const headers = Object.entries(req.headers)
+      .map(([key, value]) => `${key}: ${value}`)
+    res.send(headers.join('\n'))
+})
 
 // custom 404 page
 app.use(handlers.notFound)
