@@ -30,6 +30,8 @@ app.get('/headers', (req, res) => {
     res.send(headers.join('\n'))
 })
 
+app.get('/api/fortunes', handlers.apiFortunes)
+
 // custom 404 page
 app.use(handlers.notFound)
 
