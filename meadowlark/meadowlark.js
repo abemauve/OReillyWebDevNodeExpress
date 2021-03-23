@@ -9,6 +9,15 @@ app.disable('x-powered-by')
 // configure Handlebars view engine
 app.engine('handlebars', expressHandlebars({
     defaultLayout: 'main',
+    helpers: {
+        section: function(name, options) {
+            if (!this._sections)
+                this._sections = {}
+            else
+                this._sections[name] = options.fn(this)
+            return null
+        },
+    },
   }))
 app.set('view engine', 'handlebars')
 
