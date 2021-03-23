@@ -45,6 +45,24 @@ exports.api = {
 
 //-----------------------------------------------------------------------------
 
+exports.vacationPhoto = (req, res) => 
+  res.render('contest/vacation-photo', {
+    year: new Date().getFullYear(), month: new Date().toLocaleString("default", {month: "long"})
+  })
+
+exports.vacationPhotoContestProcess = (req, res, fields, files) => {
+  console.log('field data: ', fields)
+  console.log('files: ', files)
+  console.log("Year: " + req.params.year)
+  console.log("Month: " + req.params.month)
+  res.redirect(303, '/contest/vacation-photo-thank-you')
+}
+
+exports.vacationPhotoThankYou = (req, res) => 
+  res.render('contest/vacation-photo-thank-you')
+
+//-----------------------------------------------------------------------------
+
 exports.notFound = (req, res) => res.render('404')
 
 /* eslint-disable no-unused-vars */
