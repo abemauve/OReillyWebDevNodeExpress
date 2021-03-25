@@ -32,6 +32,16 @@ app.use(weatherMiddleware)
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 
+
+const cluster = require('cluster')
+
+app.use((req, res, next) => {
+  if(cluster.isWorker)
+    console.log(`Worker ${cluster.worker.id} received request`)
+  next()
+})
+
+
 // main route
 app.get('/', handlers.home)
 
@@ -74,19 +84,22 @@ app.post('/contest/vacation-photo/:year/:month', (req, res) => {
 // Vacation photo thank you page
 app.get('/contest/vacation-photo-thank-you', handlers.vacationPhotoThankYou)
 
-
-
 // custom 404 page
 app.use(handlers.notFound)
 
 // custom 500 page
 app.use(handlers.serverError)
 
-if (require.main === module) {
+function startServer(port) {
     app.listen(port, () => {
-    console.log(`Express started on http://localhost:${port}; ` +
-        `press Ctrl-C to terminate.`)
+        console.log(`Express started in ${app.get('env')} `
+            + `mode on http://localhost:${port}` + 
+            `; press Ctrl-C to terminate.`)
     })
+}
+
+if (require.main === module) {
+    startServer(process.env.PORT || 3000)
 } else {
-    module.exports = app
+    module.exports = startServer
 }
